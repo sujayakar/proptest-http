@@ -33,7 +33,7 @@ impl ValueTree for ResponseValueTree {
     fn current(&self) -> Self::Value {
         let mut b = http::response::Builder::default();
         let (ArbitraryStatusCode(s), ArbitraryHeaderMap(h)) = self.0.current();
-        b.status(s);
+        b = b.status(s);
         *b.headers_mut().unwrap() = h;
         ArbitraryResponse(b.body(()).unwrap())
     }

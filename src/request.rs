@@ -37,8 +37,8 @@ impl ValueTree for RequestValueTree {
     fn current(&self) -> Self::Value {
         let mut b = http::request::Builder::default();
         let (ArbitraryUri(u), ArbitraryMethod(m), ArbitraryHeaderMap(h)) = self.0.current();
-        b.uri(u);
-        b.method(m);
+        b = b.uri(u);
+        b = b.method(m);
         *b.headers_mut().unwrap() = h;
         ArbitraryRequest(b.body(()).unwrap())
     }
